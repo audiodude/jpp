@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "jpp"
+version = "0.1.0"
+description = "Just Press Play!"
+authors = ["Travis Briggs <audiodude@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^1.1.2"
+Flask-SocketIO = "^5.0.1"
+pymongo = "^3.11.3"
+Flask-Session = "^0.3.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
