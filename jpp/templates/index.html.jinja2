@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Just Press Play!</title>
+</head>
+<body>
+  <h1>Select a movie</h1>
+  <ul>
+    {% for movie in movies %}
+    <li><a href="/movie/start?id={{ movie._id }}">{{ movie.name }}</a></li>
+    {% endfor %}
+  </ul>
+</body>
