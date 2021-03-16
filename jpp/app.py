@@ -1,6 +1,7 @@
 import os
 
-from flask import Flask, render_template
+from bson.objectid import ObjectId
+from flask import Flask, render_template, request
 from flask_session import Session
 from flask_socketio import SocketIO
 from pymongo import MongoClient
@@ -18,4 +19,19 @@ db = client.jpp
 @app.route('/')
 def hello_world():
   movies = list(db.movies.find())
-  return render_template('index.html.jinja2', movies=movies)
+  return render_template('index.html', movies=movies)
+
+@app.route('/movie/')
+def movie():
+  movie = db.movies.find_one({'_id': ObjectId(request.args.get('id'))})
+  return render_template('movie.html', movie=movie)
+
+@app.route('/movie/start')
+def start():
+  socketio.emit('start')
+  return (204, '')
+
+@app.route('/movie/pause')
+def pause():
+  socketio.emit('pause')
+  return (204, '')
