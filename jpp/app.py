@@ -23,7 +23,6 @@ def movie():
   movies = get_movie_data()['movies']
   filename = request.args.get('filename')
   movie = list(filter(lambda m: m['filename'] == filename, movies))[0]
-  print(movie)
   return render_template('movie.html', movie=movie)
 
 @app.route('/movie/play')
