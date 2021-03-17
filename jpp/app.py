@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from flask_session import Session
 from flask_socketio import SocketIO
 
@@ -17,6 +17,12 @@ def get_movie_data():
 def hello_world():
   movies = get_movie_data()['movies']
   return render_template('index.html', movies=movies)
+
+# This is only used in development environments. In production, the /files/ path
+# is statically mapped to nginx. See nginx.conf.
+@app.route('/files/<path:filename>')
+def files(filename):
+  return send_from_directory('static/movies', filename)
 
 @app.route('/movie/')
 def movie():
