@@ -32,11 +32,11 @@ def movie():
   return render_template('movie.html', movie=movie)
 
 @app.route('/movie/play')
-def start():
+def play():
   socketio.emit('play')
-  return ('', 204)
+  return ('Play sent', 200)
 
 @app.route('/movie/pause')
 def pause():
   socketio.emit('pause')
-  return ('', 204)
+  return ('Pause sent', 200)
