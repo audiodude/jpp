@@ -20,7 +20,7 @@
   </head>
   <body>
     <div class="movie-container">
-      <video src="{{ movie.url }}" controls style="max-width: 100%">
+      <video src="{{ url_for('static', filename='movies/%s' % movie.filename) }}" controls style="max-width: 100%">
     </div>
     <script>
       var video = document.querySelector('video');

@@ -1,29 +1,30 @@
+import json
 import os
 
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request
 from flask_session import Session
 from flask_socketio import SocketIO
-from pymongo import MongoClient
 
 app = Flask(__name__)
 Session(app)
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-MONGO_URL = os.environ.get('MONGO_URL') or 'mongodb://localhost:27017'
-client = MongoClient(MONGO_URL,
-                     connectTimeoutMS=2000,
-                     serverSelectionTimeoutMS=6000)
-db = client.jpp
+def get_movie_data():
+  with open(os.path.join(os.path.dirname(__file__), 'static', 'movies.json')) as f:
+    return json.load(f)
 
 @app.route('/')
 def hello_world():
-  movies = list(db.movies.find())
+  movies = get_movie_data()['movies']
   return render_template('index.html', movies=movies)
 
 @app.route('/movie/')
 def movie():
-  movie = db.movies.find_one({'_id': ObjectId(request.args.get('id'))})
+  movies = get_movie_data()['movies']
+  filename = request.args.get('filename')
+  movie = list(filter(lambda m: m['filename'] == filename, movies))[0]
+  print(movie)
   return render_template('movie.html', movie=movie)
 
 @app.route('/movie/play')
