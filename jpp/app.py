@@ -1,7 +1,6 @@
 import json
 import os
 
-from bson.objectid import ObjectId
 from flask import Flask, render_template, request
 from flask_session import Session
 from flask_socketio import SocketIO
