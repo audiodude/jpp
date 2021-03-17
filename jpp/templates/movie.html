@@ -29,8 +29,12 @@
         console.log('Client connected - ', socket.id);
       });
 
-      socket.on("start", () => {
+      socket.on("play", () => {
         video.play();
+      })
+
+      socket.on("pause", () => {
+        video.pause();
       })
     </script>
   </body>

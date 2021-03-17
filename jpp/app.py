@@ -26,12 +26,12 @@ def movie():
   movie = db.movies.find_one({'_id': ObjectId(request.args.get('id'))})
   return render_template('movie.html', movie=movie)
 
-@app.route('/movie/start')
+@app.route('/movie/play')
 def start():
-  socketio.emit('start')
-  return (204, '')
+  socketio.emit('play')
+  return ('', 204)
 
 @app.route('/movie/pause')
 def pause():
   socketio.emit('pause')
-  return (204, '')
+  return ('', 204)
